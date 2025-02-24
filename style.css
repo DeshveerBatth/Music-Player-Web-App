@@ -122,7 +122,7 @@ body{
 }
 
 .spotifyplaylist{
-    padding: 10px;
+    padding-bottom: 10px;
 }
 
 .cards{
@@ -216,9 +216,9 @@ body{
     position: fixed;
     bottom: 0;
     background-color: #ffffff;
-    z-index: 1000;
-    
+    filter: invert(1);
     width: 80%;
+    border-radius: 10px;
 }
 
 .songbuttons{
@@ -233,7 +233,7 @@ body{
 
 .songList ul li{
     display: flex;
-    gap: 30px;
+    gap: 15px;
     cursor: pointer;
     align-items: center;
     width: 90%;
@@ -242,18 +242,33 @@ body{
     padding: 10px;
     border-radius: 5px;
     min-height: 7vh;
-    
+    justify-content: space-between;
+    font-size: 14px;
     
 }
-.songList ul{
+.songList{
     max-height: calc(80vh - 100px); /* Adjust height dynamically */
     overflow-y: auto; /* Enables vertical scrolling */
-    padding-bottom: 10px; /* Space for scrollbar */
+    margin: 10px 0; /* Space for scrollbar */
 }
 .controls-music{
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg);
     height: 35px;
 }
-.songName{
-    
+.controls-playbar{
+    height: 33px;
+    filter: invert(0%) sepia(0%) saturate(0%) brightness(70%) contrast(350%);
+
+
+}
+.songList .info{
+    width: 344px;
+}
+
+.seekbar{
+    height: 20px;
+    width: 90%;
+    border: 2px rgb(215, 47, 47);
+    position: absolute;
+    bottom: 5px;
 }

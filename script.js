@@ -45,7 +45,7 @@ async function main() {
         let li = document.createElement("li");
         li.innerHTML = `
             <img class="controls-music " src="./music.svg" alt="Music Icon">
-            <div class="info ">
+            <div class="info">
                 <div class="songName">${song}</div>
             </div>
             <img class= "controls playNow" src = "play.svg" alt="">
@@ -54,17 +54,20 @@ async function main() {
     }
 
 
-    var audio = new Audio(`songs/${songs[0]}.mp3`);
-    audio.play()
-        .catch(err => console.error("❌ Playback error:", err));
+
+    
+
+    // var audio = new Audio(`songs/${songs[0]}.mp3`);
+    // audio.play()
+    //     .catch(err => console.error("❌ Playback error:", err));
 
 
-    audio.addEventListener("loadeddata", () => {
-        let duration = audio.duration;
-        console.log("Audio Duration:", audio.duration);
-        console.log(audio.currentSrc)
-        console.log(audio.currentTime)
-    });
+    // audio.addEventListener("loadeddata", () => {
+    //     let duration = audio.duration;
+    //     console.log("Audio Duration:", audio.duration);
+    //     console.log(audio.currentSrc)
+    //     console.log(audio.currentTime)
+    // });
     
 }
 
