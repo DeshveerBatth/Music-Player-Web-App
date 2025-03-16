@@ -1,4 +1,10 @@
+
 console.log("Lets write java script");
+
+
+let currentSong =  new Audio();
+
+const play = document.querySelector(".controls-playbar.play"); // Select the play button
 
 // function secondsToMinutesSeconds(seconds) {
 //     if (isNaN(seconds) || seconds < 0) {
@@ -36,7 +42,17 @@ async function getSongs(){
     return songs
 }
 
+const playMusic = (track) => {
+    currentSong.src = `/songs/${encodeURIComponent(track)}.mp3`; // Encode and add .mp3 extension
+    currentSong.pause();  // Ensure it stops before changing the source
+    currentSong.load();   // Reload the audio file
+    currentSong.play().catch(err => console.error("Playback error:", err));
+    play.src = "pause.svg";
+};
+
+
 async function main() {
+
     let songs = await getSongs();
     // console.log("Songs List in main():", songs);
     
@@ -53,7 +69,28 @@ async function main() {
         songul.appendChild(li);
     }
 
-
+    //attach event listener to each song
+    document.querySelectorAll(".songList li").forEach((e) => {
+        e.addEventListener("click", () => {
+            let songName = e.querySelector(".info").firstElementChild.innerHTML.trim();
+            console.log("Playing song:", songName);
+            playMusic(songName);
+        });
+    });
+    
+    //attach event listners to play,next and previous listeners
+    play.addEventListener("click", ()=>{
+        if(currentSong.paused){
+            currentSong.play();
+            play.src = "pause.svg";
+        }
+        else{
+            currentSong.pause();
+            play.src = "play.svg"; 
+        }
+    })
+    
+    
 
     
 
