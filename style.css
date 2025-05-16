@@ -338,7 +338,7 @@ body {
     width: 95%;
     background-color: rgb(255, 255, 255);
     position: absolute;
-    bottom: 8px;
+    bottom: 10px;
     left: 30px;
     border-radius: 3px;
 }
@@ -351,7 +351,7 @@ body {
     position: relative;
     bottom: 2px;
     transition: left 0.3s;
-
+    left : 0%;
 }
 
 .songbuttons img {
@@ -362,7 +362,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    padding-bottom: 5px;
     width: 100%;
 }
 
@@ -376,4 +376,9 @@ body {
     flex: 1;
     text-align: right;
     padding-right: 20px;
+    
+}
+
+.songInfo{
+    padding-bottom: 5 px;
 }

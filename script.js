@@ -4,6 +4,20 @@ console.log("Lets write java script");
 
 let currentSong =  new Audio();
 
+
+function secondsToMinutesSeconds(seconds) {
+    if (isNaN(seconds) || seconds < 0) return "00:00";
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+
 const play = document.querySelector(".controls-playbar.play"); // Select the play button
 
 // function secondsToMinutesSeconds(seconds) {
@@ -42,21 +56,32 @@ async function getSongs(){
     return songs
 }
 
-const playMusic = (track) => {
-    currentSong.src = `/songs/${encodeURIComponent(track)}.mp3`; // Encode and add .mp3 extension
-    currentSong.pause();  // Ensure it stops before changing the source
-    currentSong.load();   // Reload the audio file
-    currentSong.play().catch(err => console.error("Playback error:", err));
-    play.src = "pause.svg";
-    document.querySelector(".songInfo").innerHTML = track
-    document.querySelector(".songTime").innerHTML = "00:00"
+//event listener to play song
+const playMusic = (track, pause = false) => {
+    currentSong.pause(); // stop if already playing
+    currentSong.src = `/songs/${encodeURIComponent(track)}.mp3`;
+    currentSong.load(); // reload the new song
+
+    if (!pause) {
+        currentSong.play().catch(err => console.error("Playback error:", err));
+        play.src = "pause.svg";
+    } else {
+        play.src = "play.svg";
+    }
+
+    document.querySelector(".songInfo").innerHTML = track;
+    document.querySelector(".songTime").innerHTML = "00:00 / 00:00";
 };
+
+
 
 
 async function main() {
 
     let songs = await getSongs();
     // console.log("Songs List in main():", songs);
+
+    playMusic(songs[0], true);
     
     let songul = document.querySelector(".songList ul");
     for (const song of songs) {
@@ -90,6 +115,13 @@ async function main() {
             currentSong.pause();
             play.src = "play.svg"; 
         }
+    })
+
+    //time update event
+    currentSong.addEventListener("timeupdate", ()=>{
+        
+        document.querySelector(".songTime").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}/${secondsToMinutesSeconds(currentSong.duration)}`
+        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
     })
     
     
