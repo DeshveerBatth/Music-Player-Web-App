@@ -3,6 +3,7 @@ console.log("Lets write java script");
 
 
 let currentSong =  new Audio();
+let currentSongIndex = 0;
 
 
 function secondsToMinutesSeconds(seconds) {
@@ -81,7 +82,7 @@ async function main() {
     let songs = await getSongs();
     // console.log("Songs List in main():", songs);
 
-    playMusic(songs[0], true);
+    playMusic(songs[currentSongIndex], true);
     
     let songul = document.querySelector(".songList ul");
     for (const song of songs) {
@@ -97,9 +98,10 @@ async function main() {
     }
 
     //attach event listener to each song
-    document.querySelectorAll(".songList li").forEach((e) => {
+    document.querySelectorAll(".songList li").forEach((e, index) => {
         e.addEventListener("click", () => {
             let songName = e.querySelector(".info").firstElementChild.innerHTML.trim();
+            currentSongIndex = index;
             console.log("Playing song:", songName);
             playMusic(songName);
         });
@@ -124,6 +126,35 @@ async function main() {
         document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
     })
     
+    // adding an event listner to the seekbar
+    document.querySelector(".seekbar").addEventListener("click", e=>{
+        let percent = (e.offsetX/ e.target.getBoundingClientRect().width) *100;
+        document.querySelector(".circle").style.left = percent + "%";
+        currentSong.currentTime = (currentSong.duration * percent) /100;
+    })
+
+    document.querySelector(".previous").addEventListener("click", e => {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        playMusic(songs[currentSongIndex]);
+    });
+    
+    
+    // Next button event
+    document.querySelector(".next").addEventListener("click", e => {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        playMusic(songs[currentSongIndex]);
+    });
+
+    document.querySelector(".repeat").addEventListener("click", e => {
+        currentSong.currentTime = 0;
+    });
+
+    document.querySelector(".shuffle").addEventListener("click", e => {
+        let randomIndex = Math.floor(Math.random() * songs.length);
+        let randomSong = songs[randomIndex];
+        playMusic(randomSong);
+
+    });
     
 
     
