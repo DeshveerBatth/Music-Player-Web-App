@@ -48,6 +48,8 @@ const playMusic = (track) => {
     currentSong.load();   // Reload the audio file
     currentSong.play().catch(err => console.error("Playback error:", err));
     play.src = "pause.svg";
+    document.querySelector(".songInfo").innerHTML = track
+    document.querySelector(".songTime").innerHTML = "00:00"
 };
 
 
@@ -106,6 +108,6 @@ async function main() {
     //     console.log(audio.currentTime)
     // });
     
-}
+} 
 
 main();
