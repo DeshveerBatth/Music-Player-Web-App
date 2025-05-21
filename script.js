@@ -2,7 +2,7 @@
 console.log("Lets write java script");
 
 
-let currentSong =  new Audio();
+let currentSong = new Audio();
 let currentSongIndex = 0;
 
 
@@ -36,20 +36,20 @@ const play = document.querySelector(".controls-playbar.play"); // Select the pla
 // }
 
 let songs;
-async function getSongs(){
+async function getSongs() {
     let a = await fetch("http://127.0.0.1:5500/songs/")
     let responce = await a.text();
     // console.log(responce)
- 
+
     let div = document.createElement("div");
     div.innerHTML = responce;
     let as = div.getElementsByTagName("a")
 
     songs = [];
 
-    for(let index=0; index<as.length; index++){
+    for (let index = 0; index < as.length; index++) {
         const element = as[index];
-        if(element.href.endsWith(".mp3")){
+        if (element.href.endsWith(".mp3")) {
             let songName = decodeURIComponent(element.href.split("/").pop().replace(".mp3", ""));
             songs.push(songName);
         }
@@ -83,7 +83,7 @@ async function main() {
     // console.log("Songs List in main():", songs);
 
     playMusic(songs[currentSongIndex], true);
-    
+
     let songul = document.querySelector(".songList ul");
     for (const song of songs) {
         let li = document.createElement("li");
@@ -106,39 +106,39 @@ async function main() {
             playMusic(songName);
         });
     });
-    
+
     //attach event listners to play,next and previous listeners
-    play.addEventListener("click", ()=>{
-        if(currentSong.paused){
+    play.addEventListener("click", () => {
+        if (currentSong.paused) {
             currentSong.play();
             play.src = "pause.svg";
         }
-        else{
+        else {
             currentSong.pause();
-            play.src = "play.svg"; 
+            play.src = "play.svg";
         }
     })
 
     //time update event
-    currentSong.addEventListener("timeupdate", ()=>{
-        
+    currentSong.addEventListener("timeupdate", () => {
+
         document.querySelector(".songTime").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}/${secondsToMinutesSeconds(currentSong.duration)}`
         document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
     })
-    
+
     // adding an event listner to the seekbar
-    document.querySelector(".seekbar").addEventListener("click", e=>{
-        let percent = (e.offsetX/ e.target.getBoundingClientRect().width) *100;
+    document.querySelector(".seekbar").addEventListener("click", e => {
+        let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
         document.querySelector(".circle").style.left = percent + "%";
-        currentSong.currentTime = (currentSong.duration * percent) /100;
+        currentSong.currentTime = (currentSong.duration * percent) / 100;
     })
 
     document.querySelector(".previous").addEventListener("click", e => {
         currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
         playMusic(songs[currentSongIndex]);
     });
-    
-    
+
+
     // Next button event
     document.querySelector(".next").addEventListener("click", e => {
         currentSongIndex = (currentSongIndex + 1) % songs.length;
@@ -155,9 +155,9 @@ async function main() {
         playMusic(randomSong);
 
     });
-    
 
-    
+
+
 
     // var audio = new Audio(`songs/${songs[0]}.mp3`);
     // audio.play()
@@ -173,19 +173,26 @@ async function main() {
 
     // event listner for hamburger
     const sidebar = document.querySelector(".leftborder"); // ADD THIS
-const overlay = document.querySelector(".overlay");
+    const overlay = document.querySelector(".overlay");
+    const cross = document.querySelector(".crosss");
+    const right = document.querySelector(".right");
 
-document.querySelector(".hamburg").addEventListener("click", () => {
-    sidebar.style.left = "0";
-    overlay.classList.add("active");
-});
+    document.querySelector(".hamburg").addEventListener("click", () => {
+        sidebar.style.left = "0";
+        overlay.classList.add("active");
+    });
 
-overlay.addEventListener("click", () => {
-    sidebar.style.left = "-100%";
-    overlay.classList.remove("active");
-});
+    overlay.addEventListener("click", () => {
+        sidebar.style.left = "-100%";
+        overlay.classList.remove("active");
+    });
 
-    
-} 
+    cross.addEventListener("click", () => {
+        sidebar.style.left = "-110%";
+        right.style.display = "block"; // optional, if you hide/show right dynamically
+        overlay.classList.remove("active");
+    });
+
+}
 
 main();
