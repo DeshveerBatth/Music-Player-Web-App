@@ -76,4 +76,6 @@
     scrollbar-width: thin;
 }
 
-
+.overflow-{
+    overflow: hidden;
+}

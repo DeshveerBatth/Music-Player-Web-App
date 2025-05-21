@@ -170,6 +170,21 @@ async function main() {
     //     console.log(audio.currentSrc)
     //     console.log(audio.currentTime)
     // });
+
+    // event listner for hamburger
+    const sidebar = document.querySelector(".leftborder"); // ADD THIS
+const overlay = document.querySelector(".overlay");
+
+document.querySelector(".hamburg").addEventListener("click", () => {
+    sidebar.style.left = "0";
+    overlay.classList.add("active");
+});
+
+overlay.addEventListener("click", () => {
+    sidebar.style.left = "-100%";
+    overlay.classList.remove("active");
+});
+
     
 } 
 
