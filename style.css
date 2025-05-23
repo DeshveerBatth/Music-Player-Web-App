@@ -183,17 +183,19 @@ body {
 .cards {
     min-width: 168px;
     /* Card width */
-    background: #333;
+    background: #252525;
     /* Background color */
     border-radius: 10px;
     padding: 15px 8px 8px 8px;
     text-align: center;
     /* Center content within cards */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all .5s;
 }
 
 .cards:hover {
-    background-color: #252525;
+    /* background-color: #252525; */
+    background-color: #4d4d4d;
 }
 
 .card-img {
@@ -333,7 +335,7 @@ body {
 
 .songList {
 
-    max-height: calc(83vh - 100px);
+    max-height: calc(83vh - 120px);
     /* Adjust height dynamically */
     overflow-y: auto;
     /* Enables vertical scrolling */
@@ -419,8 +421,8 @@ body {
 
 .volume-popup {
   position: absolute;
-  bottom: 0px;
-  left: 36px;
+  bottom: 26px;
+  left: 48.5vw;
   background-color: #ffffff;
   padding: 8px;
   border-radius: 8px;
@@ -432,10 +434,11 @@ body {
 .volume-slider {
   width: 100px;
   appearance: none;
-  height: 4px;
+  height: 8px;
   background: #ccc;
   border-radius: 2px;
   outline: none;
+  cursor: pointer;
 }
 
 .volume-slider::-webkit-slider-thumb {
@@ -446,6 +449,8 @@ body {
   border-radius: 50%;
   cursor: pointer;
 }
+
+
 
 
 
@@ -488,6 +493,9 @@ body {
     .seekbar{
         width: 94%;
     }
+    .volume-popup{
+        left: 65vw;
+    }
 
 }
 
@@ -499,7 +507,7 @@ body {
         width: 92%;
     }
     .volume-popup{
-        bottom: 12vh;
+        bottom: 78px;
         left: 63vw ;
         position: fixed;
     }
@@ -550,7 +558,7 @@ body {
         font-size: 13px;
     }
     .volume-popup{
-        left: 38.5vw;
+        left: 37vw;
     }
 
 }
