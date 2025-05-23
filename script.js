@@ -2,7 +2,7 @@
 console.log("Lets write java script");
 
 
-let currentSong = new Audio();
+const currentSong = document.getElementById("currentSong");
 let currentSongIndex = 0;
 
 
@@ -57,11 +57,10 @@ async function getSongs() {
     return songs
 }
 
-//event listener to play song
 const playMusic = (track, pause = false) => {
-    currentSong.pause(); // stop if already playing
+    currentSong.pause();
     currentSong.src = `/songs/${encodeURIComponent(track)}.mp3`;
-    currentSong.load(); // reload the new song
+    currentSong.load();
 
     if (!pause) {
         currentSong.play().catch(err => console.error("Playback error:", err));
@@ -73,6 +72,24 @@ const playMusic = (track, pause = false) => {
     document.querySelector(".songInfo").innerHTML = track;
     document.querySelector(".songTime").innerHTML = "00:00 / 00:00";
 };
+
+
+//event listener to play song
+// const playMusic = (track, pause = false) => {
+//     currentSong.pause(); // stop if already playing
+//     currentSong.src = `/songs/${encodeURIComponent(track)}.mp3`;
+//     currentSong.load(); // reload the new song
+
+//     if (!pause) {
+//         currentSong.play().catch(err => console.error("Playback error:", err));
+//         play.src = "pause.svg";
+//     } else {
+//         play.src = "play.svg";
+//     }
+
+//     document.querySelector(".songInfo").innerHTML = track;
+//     document.querySelector(".songTime").innerHTML = "00:00 / 00:00";
+// };
 
 
 
@@ -149,12 +166,34 @@ async function main() {
         currentSong.currentTime = 0;
     });
 
-    document.querySelector(".shuffle").addEventListener("click", e => {
-        let randomIndex = Math.floor(Math.random() * songs.length);
-        let randomSong = songs[randomIndex];
-        playMusic(randomSong);
+    // document.querySelector(".shuffle").addEventListener("click", e => {
+    //     let randomIndex = Math.floor(Math.random() * songs.length);
+    //     let randomSong = songs[randomIndex];
+    //     playMusic(randomSong);
 
+    // });
+
+
+    //add an event to volume
+    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e)=>{
+        currentSong.volume = parseInt(e.target.value)/100;
+    })
+
+
+    const volumeIcon = document.querySelector(".volume");
+    const volumePopup = document.getElementById("volumePopup");
+
+    volumeIcon.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevent click from closing immediately
+        volumePopup.style.display = volumePopup.style.display === "block" ? "none" : "block";
     });
+
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".volume-wrapper")) {
+            volumePopup.style.display = "none";
+        }
+    });
+
 
 
 
