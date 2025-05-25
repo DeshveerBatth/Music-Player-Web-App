@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="util.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/util.css">
     <title>Spotify - Web Player: Music for everyone</title>
 </head>
 
@@ -15,12 +15,12 @@
         <div class="leftborder">
             <div class="home bg-grey rounded m-1 p-1">
                 <div class="logo">
-                    <img class="invert" src="logo.svg" alt="">
-                    <img class="invert crosss" src="cross.svg" alt="">
+                    <img class="invert" src="img/logo.svg" alt="">
+                    <img class="invert crosss" src="img/cross.svg" alt="">
                 </div>
                 <ul>
-                    <li><img class="invert" src="home.svg" alt="not working">Home</li>
-                    <li><img class="invert" src="search.svg" alt="">Search</li>
+                    <li><img class="invert" src="img/home.svg" alt="not working">Home</li>
+                    <li><img class="invert" src="img/search.svg" alt="">Search</li>
                 </ul>
             </div>
             <div class="div">
@@ -31,11 +31,11 @@
             <div class="library bg-grey rounded  m-1 p-1">
                 <div class="heading flex align-items">
                     <div class="heading-name flex">
-                        <img src="plalist.svg" alt="" class="invert playlist">
+                        <img src="img/plalist.svg" alt="" class="invert playlist">
                         <h4>Your library</h4>
                     </div>
                     <div class="heading-img">
-                        <img class="invert width-15" src="btn-plus.svg" alt="">
+                        <img class="invert width-15" src="img/btn-plus.svg" alt="">
                     </div>
 
                 </div>
@@ -73,7 +73,7 @@
                         <path
                             d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
                     </svg>
-                    <img class="hamburg invert" src="hamburger.svg" alt="">
+                    <img class="hamburg invert" src="img/hamburger.svg" alt="">
                 </div>
                 <div class="buttons flex">
                     <button class="btn-header btn-signup">Sign up</button>
@@ -83,249 +83,27 @@
 
             <div class="spotifyplaylists bg-grey rounded  m-1 p-1">
                 <h2>Spotify Playlist</h2>
-                <div class="cardcontainer flex">
-                    <div data-folder="ncs" class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="albumCover/patander.jpeg" alt="Sample Image" class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path
-                                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <h3>Top mixes</h3>
-                        <p>Vibes that Lift, Beats that Hit!</p>
-                    </div>
-                    <div data-folder="ncs2" class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="albumCover/goat.jpeg" alt="Sample Image" class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path
-                                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <h3>Jump back in</h3>
-                        <p>Your Daily Dose of Sonic Sunshine!</p>
-                    </div>
-                    <div class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path
-                                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <h3>Happy Hits</h3>
-                        <p>Hits to boost and elevate your mood!</p>
-                    </div>
-                    <div class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path
-                                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <h3>Happy Hits</h3>
-                        <p>Hits to boost and elevate your mood!</p>
-                    </div>
-
-
+                <div class="cardcontainer spotify-container flex">
 
                 </div>
+            
 
                 <div class="spotifyplaylists bg-grey rounded  m-top ">
                     <h2>User Playlist</h2>
-                    <div class="cardcontainer flex">
-                        <div class="cards rounded">
-                            <div class="card-img-wrapper">
-                                <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                    class="hover-image">
-                                <div class="svg-overlay">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path
-                                            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3>Happy Hits</h3>
-                            <p>Hits to boost and elevate your mood!</p>
-                        </div>
-                        <div class="cards rounded">
-                            <div class="card-img-wrapper">
-                                <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                    class="hover-image">
-                                <div class="svg-overlay">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path
-                                            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3>Happy Hits</h3>
-                            <p>Hits to boost and elevate your mood!</p>
-                        </div>
-                        <div class="cards rounded">
-                            <div class="card-img-wrapper">
-                                <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                    class="hover-image">
-                                <div class="svg-overlay">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path
-                                            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3>Happy Hits</h3>
-                            <p>Hits to boost and elevate your mood!</p>
-                        </div>
-                        <div class="cards rounded">
-                            <div class="card-img-wrapper">
-                                <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                    class="hover-image">
-                                <div class="svg-overlay">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path
-                                            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3>Happy Hits</h3>
-                            <p>Hits to boost and elevate your mood!</p>
-                        </div>
-                        <div class="cards rounded">
-                            <div class="card-img-wrapper">
-                                <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                    class="hover-image">
-                                <div class="svg-overlay">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path
-                                            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3>Happy Hits</h3>
-                            <p>Hits to boost and elevate your mood!</p>
-                        </div>
-                        <div class="cards rounded">
-                            <div class="card-img-wrapper">
-                                <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                    class="hover-image">
-                                <div class="svg-overlay">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path
-                                            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <h3>Happy Hits</h3>
-                            <p>Hits to boost and elevate your mood!</p>
-                        </div>
-
-
-
+                    <div class="cardcontainer user-container flex">
+                        
                     </div>
+                </div>
 
                     <div class="spotifyplaylists bg-grey rounded  m-top ">
                         <h2>Albums</h2>
-                        <div class="cardcontainer flex">
-                            <div class="cards rounded">
-                                <div class="card-img-wrapper">
-                                    <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                        class="hover-image">
-                                    <div class="svg-overlay">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                            <path
-                                                d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <h3>Happy Hits</h3>
-                                <p>Hits to boost and elevate your mood!</p>
-                            </div>
-                            <div class="cards rounded">
-                                <div class="card-img-wrapper">
-                                    <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                        class="hover-image">
-                                    <div class="svg-overlay">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                            <path
-                                                d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <h3>Happy Hits</h3>
-                                <p>Hits to boost and elevate your mood!</p>
-                            </div>
-                            <div class="cards rounded">
-                                <div class="card-img-wrapper">
-                                    <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                        class="hover-image">
-                                    <div class="svg-overlay">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                            <path
-                                                d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <h3>Happy Hits</h3>
-                                <p>Hits to boost and elevate your mood!</p>
-                            </div>
-                            <div class="cards rounded">
-                                <div class="card-img-wrapper">
-                                    <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                        class="hover-image">
-                                    <div class="svg-overlay">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                            <path
-                                                d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <h3>Happy Hits</h3>
-                                <p>Hits to boost and elevate your mood!</p>
-                            </div>
-                            <div class="cards rounded">
-                                <div class="card-img-wrapper">
-                                    <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                        class="hover-image">
-                                    <div class="svg-overlay">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                            <path
-                                                d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <h3>Happy Hits</h3>
-                                <p>Hits to boost and elevate your mood!</p>
-                            </div>
-                            <div class="cards rounded">
-                                <div class="card-img-wrapper">
-                                    <img class="card-img" src="albumCover/emptyAlbum.jpg" alt="Sample Image"
-                                        class="hover-image">
-                                    <div class="svg-overlay">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                            <path
-                                                d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <h3>Happy Hits</h3>
-                                <p>Hits to boost and elevate your mood!</p>
-                            </div>
-
+                        <div class="cardcontainer album-container flex">
 
 
                         </div>
+                    <div class="p-2">
+
+                    </div>
                         <div>
                             <p style="margin-bottom: 35px;"></p>
 
@@ -338,20 +116,20 @@
                                 </div>
 
                                 <div class="songbuttons flex ">
-                                    <img class="controls-playbar repeat" src="repeat.svg" alt="">
-                                    <img class="controls-playbar previous" src="previous.svg" alt="">
-                                    <img class="controls-playbar play" src="play.svg" alt="">
-                                    <img class="controls-playbar next" src="next.svg" alt="">
+                                    <img class="controls-playbar repeat" src="img/repeat.svg" alt="">
+                                    <img class="controls-playbar previous" src="img/previous.svg" alt="">
+                                    <img class="controls-playbar play" src="img/play.svg" alt="">
+                                    <img class="controls-playbar next" src="img/next.svg" alt="">
 
 
-                                        <img class="controls-playbar volume" src="volume.svg" alt="">
-                                        <div class="volume-popup" id="volumePopup">
-                                            <div class="range">
-                                                <input type="range" name="volume" class="volume-slider"
-       id="volumeSlider" min="0" max="100" step="1" />
-                                            </div>
+                                    <img class="controls-playbar volume" src="img/volume.svg" alt="">
+                                    <div class="volume-popup" id="volumePopup">
+                                        <div class="range">
+                                            <input type="range" name="volume" class="volume-slider" id="volumeSlider"
+                                                min="0" max="100" step="1" />
                                         </div>
-                                    
+                                    </div>
+
 
 
                                     <!-- The audio element used for playback -->
@@ -376,7 +154,7 @@
                     </div>
                 </div>
                 <audio id="currentSong"></audio>
-                <script src="script.js"></script>
+                <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -146,25 +146,6 @@ body {
     bottom: 0px;
 }
 
-.svg-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: green;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-}
-
-.svg-wrapper svg {
-    width: 70%;
-    /* Adjust SVG size relative to the wrapper */
-    height: 70%;
-    /* Maintain the SVG aspect ratio */
-    fill: white;
-    /* Set SVG fill color */
-}
-
 .cardcontainer {
     flex-wrap: nowrap;
     gap: 10px;
@@ -179,113 +160,59 @@ body {
 .spotifyplaylists {
     border-bottom: 100px;
 }
-
 .cards {
     min-width: 168px;
-    /* Card width */
-    background: #252525;
-    /* Background color */
+    background: #1f1f1f;
     border-radius: 10px;
     padding: 15px 8px 8px 8px;
     text-align: center;
-    /* Center content within cards */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all .5s;
+    transition: all 0.3s ease;
 }
 
 .cards:hover {
-    /* background-color: #252525; */
-    background-color: #4d4d4d;
+    background-color: #353535; /* gray on hover */
 }
 
+/* Card image styling */
 .card-img {
     border-radius: 6px;
     display: block;
     width: 100%;
 }
 
+/* Image wrapper allows absolute positioning */
 .card-img-wrapper {
     position: relative;
-    /* Enables positioning of SVG within this container */
-    display: inline-block;
-}
-
-.card-img-wrapper img {
-    display: block;
-    width: 100%;
-    border-radius: 6px;
-    /* Optional: adds rounded corners */
-}
-
-.svg-overlay {
-    position: absolute;
-    bottom: 10px;
-    /* Offset from the bottom of the image */
-    right: 10px;
-    /* Offset from the right of the image */
-    background-color: green;
-    /* Green background for the SVG */
-    border-radius: 50%;
-    /* Makes it circular */
-    width: 40px;
-    /* Size of the SVG button */
-    height: 40px;
-    /* Same size for width and height */
-    display: none;
-    /* Hide by default */
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.5s ease;
-    /* Smooth animation */
-}
-
-.svg-overlay svg {
-    width: 70%;
-    height: 70%;
-    fill: white;
-    /* White color for the SVG icon */
-}
-
-.card-img-wrapper:hover .svg-overlay {
-    display: flex;
-    /* Show SVG overlay on hover */
-}
-
-.card-img-wrapper {
-    position: relative;
-    /* Enables positioning of SVG within this container */
     display: inline-block;
     overflow: hidden;
-    /* Ensures the overlay stays within the image boundaries */
 }
 
-.card-img-wrapper img {
-    display: block;
-    width: 100%;
-    border-radius: 6px;
-    /* Optional: adds rounded corners */
-}
-
+/* SVG overlay button (hidden by default) */
 .svg-overlay {
     position: absolute;
-    bottom: -50px;
+    bottom: -50px; /* start off-screen */
     right: 10px;
-    background-color: rgb(45, 206, 45);
+    background-color: rgb(42, 191, 42);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
-    transition: bottom 0.3s ease, opacity 0.3s ease;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
+    transition: bottom 0.3s ease, opacity 0.3s ease;
 }
 
+/* Center the SVG icon */
 .svg-overlay svg {
-    width: 40%;
-    height: 40%;
-    fill: black;
+    width: 50%;
+    height: 50%;
+    fill: white;
 }
 
-.card-img-wrapper:hover .svg-overlay {
+/* Trigger animation when hovering the whole card */
+.cards:hover .svg-overlay {
     bottom: 10px;
     opacity: 1;
 }
@@ -293,7 +220,7 @@ body {
 
 .playbar {
     position: fixed;
-    bottom: 0;
+    bottom: 6px;
     background-color: #181818;
     width: 71.3vw;
     border-radius: 10px;
@@ -546,7 +473,7 @@ body {
         width: 85%;
     }
     .songbuttons {
-        gap: 4px;
+        gap: 5px;
     }
     .seekbar{
         width: 84%;
