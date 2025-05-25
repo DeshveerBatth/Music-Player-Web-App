@@ -103,37 +103,72 @@ const playMusic = (track, pause = false) => {
 };
 
 
+// async function displaySpotifyPlaylist() {
+//     let a = await fetch(`http://127.0.0.1:5500/songs/`)
+//     let responce = await a.text();
+//     let div = document.createElement("div")
+//     div.innerHTML = responce;
+//     let anchors = div.getElementsByTagName("a");
+//     let cardcontainer = document.querySelector(".spotify-container")
+//     let array = Array.from(anchors)
+//     for(let index = 0; index< array.length; index++){
+//         const e = array[index];
+//         if (e.href.includes("/songs/")) {
+//             let folder = e.href.split("/songs/")[1];
+//             let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
+//             let responce = await a.json();
+            
+//             cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder = "${folder}" class="cards rounded">
+//                         <div class="card-img-wrapper">
+//                             <img class="card-img" src="/Spotify-Clone/songs/${folder}/cover.jpeg"
+//                                 alt="Sample Image" class="hover-image">
+//                             <div class="svg-overlay">
+//                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+//                                     <path
+//                                         d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+//                                 </svg>
+//                             </div>
+//                         </div>
+//                         <h3>${responce.title}</h3>
+//                         <p>${responce.description}</p>
+//                     </div>`
+//         }
+//     }
+
 async function displaySpotifyPlaylist() {
-    let a = await fetch(`http://127.0.0.1:5500/songs/`)
+    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/songs/`)
     let responce = await a.text();
     let div = document.createElement("div")
     div.innerHTML = responce;
     let anchors = div.getElementsByTagName("a");
     let cardcontainer = document.querySelector(".spotify-container")
     let array = Array.from(anchors)
-    for(let index = 0; index< array.length; index++){
+    for (let index = 0; index < array.length; index++) {
         const e = array[index];
         if (e.href.includes("/songs/")) {
             let folder = e.href.split("/songs/")[1];
-            let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
+            let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/songs/${folder}/info.json`)
             let responce = await a.json();
-            
-            cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder = "${folder}" class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="/Spotify-Clone/songs/${folder}/cover.jpeg"
-                                alt="Sample Image" class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path
-                                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
-                            </div>
+
+            cardcontainer.innerHTML += `
+                <div data-folder="${folder}" class="cards rounded">
+                    <div class="card-img-wrapper">
+                        <img class="card-img" src="https://deshveerbatth.github.io/Spotify-Clone/songs/${folder}/cover.jpeg"
+                            alt="Sample Image">
+                        <div class="svg-overlay">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                <path
+                                    d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+                            </svg>
                         </div>
-                        <h3>${responce.title}</h3>
-                        <p>${responce.description}</p>
-                    </div>`
+                    </div>
+                    <h3>${responce.title}</h3>
+                    <p>${responce.description}</p>
+                </div>`;
         }
     }
+}
+
 
     //load the playlist according to the playlist clicked
     Array.from(document.getElementsByClassName("cards")).forEach(e => {
