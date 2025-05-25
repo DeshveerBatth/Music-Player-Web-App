@@ -29,7 +29,7 @@ const play = document.querySelector(".controls-playbar.play"); // Select the pla
 let songs;
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
+    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/${folder}/`);
     let responce = await a.text();
     // console.log(responce)
 
@@ -104,7 +104,7 @@ const playMusic = (track, pause = false) => {
 
 
 async function displaySpotifyPlaylist() {
-    let a = await fetch(`http://127.0.0.1:5500/songs/`)
+    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/songs/`)
     let responce = await a.text();
     let div = document.createElement("div")
     div.innerHTML = responce;
@@ -115,7 +115,7 @@ async function displaySpotifyPlaylist() {
         const e = array[index];
         if (e.href.includes("/songs/")) {
             let folder = e.href.split("/songs/")[1];
-            let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
+            let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/songs/${folder}/info.json`)
             let responce = await a.json();
             
             cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder = "${folder}" class="cards rounded">
@@ -145,7 +145,7 @@ async function displaySpotifyPlaylist() {
 }
 
 async function displayUserPlaylists() {
-    let a = await fetch(`http://127.0.0.1:5500/user-songs/`);
+    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/user-songs/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -161,7 +161,7 @@ async function displayUserPlaylists() {
             let folder = e.href.split("/user-songs/")[1];
 
             try {
-                let res = await fetch(`http://127.0.0.1:5500/user-songs/${folder}/info.json`);
+                let res = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/user-songs/${folder}/info.json`);
                 let data = await res.json();
 
                 userContainer.innerHTML += `
@@ -193,7 +193,7 @@ async function displayUserPlaylists() {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`http://127.0.0.1:5500/albums/`);
+    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/albums/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -209,7 +209,7 @@ async function displayAlbums() {
             let folder = e.href.split("/albums/")[1];
 
             try {
-                let res = await fetch(`http://127.0.0.1:5500/albums/${folder}/info.json`);
+                let res = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/albums/${folder}/info.json`);
                 let data = await res.json();
 
                 albumContainer.innerHTML += `
