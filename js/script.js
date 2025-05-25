@@ -120,7 +120,7 @@ async function displaySpotifyPlaylist() {
             
             cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder = "${folder}" class="cards rounded">
                         <div class="card-img-wrapper">
-                            <img class="card-img" src="/songs/${folder}/cover.jpeg"
+                            <img class="card-img" src="/Spotify-Clone/songs/${folder}/cover.jpeg"
                                 alt="Sample Image" class="hover-image">
                             <div class="svg-overlay">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -167,7 +167,7 @@ async function displayUserPlaylists() {
                 userContainer.innerHTML += `
                     <div data-folder="${folder}" class="cards rounded">
                         <div class="card-img-wrapper">
-                            <img class="card-img" src="/user-songs/${folder}/cover.jpeg"
+                            <img class="card-img" src="/Spotify-Clone/user-songs/${folder}/cover.jpeg"
                                 alt="Sample Image" class="hover-image">
                             <div class="svg-overlay">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -215,7 +215,7 @@ async function displayAlbums() {
                 albumContainer.innerHTML += `
                     <div data-folder="${folder}" class="cards rounded">
                         <div class="card-img-wrapper">
-                            <img class="card-img" src="/albums/${folder}/cover.jpeg"
+                            <img class="card-img" src="/Spotify-Clone/albums/${folder}/cover.jpeg"
                                 alt="Album Cover" class="hover-image">
                             <div class="svg-overlay">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
