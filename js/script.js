@@ -83,11 +83,24 @@ async function getSongs(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-    currentSong.pause();
-    // currentSong.src = `/${currFolder}/${encodeURIComponent(track)}.mp3`;    
-    currentSong.src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodeURIComponent(track)}.mp3`;
+    if (!track || typeof track !== "string") {
+        console.error("Invalid track name:", track);
+        return;
+    }
 
+    currentSong.pause();
+
+    const encodedTrack = encodeURIComponent(track);
+    const src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodedTrack}.mp3`;
+
+    currentSong.src = src;
     currentSong.load();
+
+    currentSong.onerror = () => {
+        console.error("Audio failed to load:", currentSong.src);
+        alert("Failed to load the selected song.");
+        play.src = "img/play.svg";
+    };
 
     if (!pause) {
         currentSong.play().catch(err => console.error("Playback error:", err));
@@ -98,8 +111,6 @@ const playMusic = (track, pause = false) => {
 
     document.querySelector(".songInfo").innerHTML = track;
     document.querySelector(".songTime").innerHTML = "00:00 / 00:00";
-
-
 };
 
 
