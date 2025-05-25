@@ -43,7 +43,7 @@
 }
 
 .library {
-    height: 75vh;
+    height: 76vh;
     position: relative;
     overflow-y: auto;
 }
@@ -52,7 +52,7 @@
     display: flex;
     gap: 13px;
     flex-wrap: wrap;
-    bottom: 1px;
+    bottom: 7px;
     justify-content: center;
     padding: 0px 0px;
     position: fixed;

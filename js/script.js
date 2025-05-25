@@ -84,7 +84,8 @@ async function getSongs(folder) {
 
 const playMusic = (track, pause = false) => {
     currentSong.pause();
-    currentSong.src = `/${currFolder}/${encodeURIComponent(track)}.mp3`;    // currentSong.src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodeURIComponent(track)}.mp3`;
+    // currentSong.src = `/${currFolder}/${encodeURIComponent(track)}.mp3`;    
+    currentSong.src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodeURIComponent(track)}.mp3`;
 
     currentSong.load();
 
