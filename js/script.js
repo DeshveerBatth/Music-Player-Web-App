@@ -25,7 +25,7 @@ const play = document.querySelector(".controls-playbar.play"); // Select the pla
 let songs;
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`/${folder}/`);
+    let a = await fetch(`/Spotify-Clone/${folder}/`);
     let responce = await a.text();
     // console.log(responce)
 
@@ -73,7 +73,7 @@ async function getSongs(folder) {
 
 const playMusic = (track, pause = false) => {
     currentSong.pause();
-    currentSong.src = `/${currFolder}/${encodeURIComponent(track)}.mp3`;
+    currentSong.src = `/Spotify-Clone/${currFolder}/${encodeURIComponent(track)}.mp3`;
     // currentSong.src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodeURIComponent(track)}.mp3`;
 
     currentSong.load();
@@ -93,7 +93,7 @@ const playMusic = (track, pause = false) => {
 
 async function displayPlaylists({ path, containerSelector, playFirst = false }) {
     try {
-        let a = await fetch(`/${path}/`);
+        let a = await fetch(`/Spotify-Clone/${path}/`);
         let response = await a.text();
 
         let div = document.createElement("div");
@@ -150,7 +150,7 @@ async function displayPlaylists({ path, containerSelector, playFirst = false }) 
 
 async function main() {
 
-    await getSongs("songs/ncs");
+    await getSongs("Spotify-Clone/songs/ncs");
 
         playMusic(songs[currentSongIndex], true);
 
