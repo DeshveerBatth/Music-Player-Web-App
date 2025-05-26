@@ -29,7 +29,7 @@ const play = document.querySelector(".controls-playbar.play"); // Select the pla
 let songs;
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/${folder}/`);
+    let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
     let responce = await a.text();
     // console.log(responce)
 
@@ -83,24 +83,11 @@ async function getSongs(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-    if (!track || typeof track !== "string") {
-        console.error("Invalid track name:", track);
-        return;
-    }
-
     currentSong.pause();
+    currentSong.src = `/${currFolder}/${encodeURIComponent(track)}.mp3`;    
+    // currentSong.src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodeURIComponent(track)}.mp3`;
 
-    const encodedTrack = encodeURIComponent(track);
-    const src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodedTrack}.mp3`;
-
-    currentSong.src = src;
     currentSong.load();
-
-    currentSong.onerror = () => {
-        console.error("Audio failed to load:", currentSong.src);
-        alert("Failed to load the selected song.");
-        play.src = "img/play.svg";
-    };
 
     if (!pause) {
         currentSong.play().catch(err => console.error("Playback error:", err));
@@ -111,42 +98,44 @@ const playMusic = (track, pause = false) => {
 
     document.querySelector(".songInfo").innerHTML = track;
     document.querySelector(".songTime").innerHTML = "00:00 / 00:00";
+
+
 };
 
 
 async function displaySpotifyPlaylist() {
-    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/songs/`);
+    let a = await fetch(`http://127.0.0.1:5500/songs/`)
     let responce = await a.text();
-    let div = document.createElement("div");
+    let div = document.createElement("div")
     div.innerHTML = responce;
     let anchors = div.getElementsByTagName("a");
-    let cardcontainer = document.querySelector(".spotify-container");
-    let array = Array.from(anchors);
-
-    for (let index = 0; index < array.length; index++) {
+    let cardcontainer = document.querySelector(".spotify-container")
+    let array = Array.from(anchors)
+    for(let index = 0; index< array.length; index++){
         const e = array[index];
         if (e.href.includes("/songs/")) {
             let folder = e.href.split("/songs/")[1];
-            let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/songs/${folder}/info.json`)
+            let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
             let responce = await a.json();
-
-            cardcontainer.innerHTML += `
-                <div data-folder="${folder}" class="cards rounded">
-                    <div class="card-img-wrapper">
-                        <img class="card-img" src="https://deshveerbatth.github.io/Spotify-Clone/songs/${folder}/cover.jpeg"
-                            alt="Sample Image" class="hover-image">
-                        <div class="svg-overlay">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
-                            </svg>
+            
+            cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder = "${folder}" class="cards rounded">
+                        <div class="card-img-wrapper">
+                            <img class="card-img" src="/songs/${folder}/cover.jpeg"
+                                alt="Sample Image" class="hover-image">
+                            <div class="svg-overlay">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                    <path
+                                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+                                </svg>
+                            </div>
                         </div>
-                    </div>
-                    <h3>${responce.title}</h3>
-                    <p>${responce.description}</p>
-                </div>`;
+                        <h3>${responce.title}</h3>
+                        <p>${responce.description}</p>
+                    </div>`
         }
     }
 
+    //load the playlist according to the playlist clicked
     Array.from(document.getElementsByClassName("cards")).forEach(e => {
         e.addEventListener("click", async item => {
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
@@ -156,7 +145,7 @@ async function displaySpotifyPlaylist() {
 }
 
 async function displayUserPlaylists() {
-    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/user-songs/`);
+    let a = await fetch(`http://127.0.0.1:5500/user-songs/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -172,17 +161,17 @@ async function displayUserPlaylists() {
             let folder = e.href.split("/user-songs/")[1];
 
             try {
-                let res = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/user-songs/${folder}/info.json`);
+                let res = await fetch(`http://127.0.0.1:5500/user-songs/${folder}/info.json`);
                 let data = await res.json();
 
                 userContainer.innerHTML += `
                     <div data-folder="${folder}" class="cards rounded">
                         <div class="card-img-wrapper">
-                            <img class="card-img" src="https://deshveerbatth.github.io/Spotify-Clone/user-songs/${folder}/cover.jpeg"
+                            <img class="card-img" src="/user-songs/${folder}/cover.jpeg"
                                 alt="Sample Image" class="hover-image">
                             <div class="svg-overlay">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
+                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
                                 </svg>
                             </div>
                         </div>
@@ -195,6 +184,7 @@ async function displayUserPlaylists() {
         }
     }
 
+    // Load playlist when card is clicked
     Array.from(document.querySelectorAll(".user-container .cards")).forEach(e => {
         e.addEventListener("click", async item => {
             songs = await getSongs(`user-songs/${item.currentTarget.dataset.folder}`);
@@ -203,7 +193,7 @@ async function displayUserPlaylists() {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/albums/`);
+    let a = await fetch(`http://127.0.0.1:5500/albums/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -219,17 +209,17 @@ async function displayAlbums() {
             let folder = e.href.split("/albums/")[1];
 
             try {
-                let res = await fetch(`https://deshveerbatth.github.io/Spotify-Clone/albums/${folder}/info.json`);
+                let res = await fetch(`http://127.0.0.1:5500/albums/${folder}/info.json`);
                 let data = await res.json();
 
                 albumContainer.innerHTML += `
                     <div data-folder="${folder}" class="cards rounded">
                         <div class="card-img-wrapper">
-                            <img class="card-img" src="https://deshveerbatth.github.io/Spotify-Clone/albums/${folder}/cover.jpeg"
+                            <img class="card-img" src="/albums/${folder}/cover.jpeg"
                                 alt="Album Cover" class="hover-image">
                             <div class="svg-overlay">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
+                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
                                 </svg>
                             </div>
                         </div>
@@ -242,6 +232,7 @@ async function displayAlbums() {
         }
     }
 
+    // Load playlist when album card is clicked
     Array.from(document.querySelectorAll(".album-container .cards")).forEach(e => {
         e.addEventListener("click", async item => {
             songs = await getSongs(`albums/${item.currentTarget.dataset.folder}`);
