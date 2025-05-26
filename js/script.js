@@ -150,13 +150,9 @@ async function displayPlaylists({ path, containerSelector, playFirst = false }) 
 
 async function main() {
 
-    await getSongs("/songs/ncs2/");
+    await getSongs("songs/ncs");
 
-    if (songs && songs.length > 0) {
         playMusic(songs[currentSongIndex], true);
-    } else {
-        console.error("No songs found in songs/ncs2");
-    }
 
     displayPlaylists({ path: "songs", containerSelector: ".spotify-container", playFirst: true });
     displayPlaylists({ path: "user-songs", containerSelector: ".user-container" });
