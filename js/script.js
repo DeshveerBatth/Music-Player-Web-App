@@ -150,7 +150,7 @@ async function displayPlaylists({ path, containerSelector, playFirst = false }) 
 
 async function main() {
 
-    await getSongs("/songs/ncs2");
+    await getSongs("/songs/ncs2/");
 
     if (songs && songs.length > 0) {
         playMusic(songs[currentSongIndex], true);
