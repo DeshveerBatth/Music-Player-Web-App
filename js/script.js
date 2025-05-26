@@ -17,10 +17,7 @@ function secondsToMinutesSeconds(seconds) {
     return `${formattedMinutes}:${formattedSeconds}`;
 }
 
-
 const play = document.querySelector(".controls-playbar.play"); // Select the play button
-
-
 
 let songs;
 async function getSongs(folder) {
@@ -85,59 +82,53 @@ const playMusic = (track, pause = false) => {
 
 async function displayPlaylists({ path, containerSelector, playFirst = false }) {
     try {
-        let a = await fetch(`/${path}/`);
-        let response = await a.text();
-
-        let div = document.createElement("div");
-        div.innerHTML = response;
-        let anchors = div.getElementsByTagName("a");
+        // 1. Fetch index.json (e.g., ["ncs", "lofi", "punjabi"])
+        let res = await fetch(`/${path}/index.json`);
+        let folders = await res.json(); // array of folder names like ["ncs", "punjabi"]
 
         let container = document.querySelector(containerSelector);
-        let array = Array.from(anchors);
+        container.innerHTML = ""; // clear old content
 
-        for (let index = 0; index < array.length; index++) {
-            const e = array[index];
-            if (e.href.includes(`/${path}/`)) {
-                let folder = e.href.split(`/${path}/`)[1];
+        // 2. For each folder, fetch its info and render card
+        for (let folder of folders) {
+            try {
+                let infoRes = await fetch(`/${path}/${folder}/info.json`);
+                let data = await infoRes.json(); // { title, description }
 
-                try {
-                    let res = await fetch(`/${path}/${folder}/info.json`);
-                    let data = await res.json();
-
-                    container.innerHTML += `
-                        <div data-folder="${folder}" class="cards rounded">
-                            <div class="card-img-wrapper">
-                                <img class="card-img" src="/${path}/${folder}/cover.jpeg"
-                                    alt="Cover Image" class="hover-image">
-                                <div class="svg-overlay">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                    </svg>
-                                </div>
+                container.innerHTML += `
+                    <div data-folder="${folder}" class="cards rounded">
+                        <div class="card-img-wrapper">
+                            <img class="card-img" src="/${path}/${folder}/cover.jpeg" alt="Cover Image" class="hover-image">
+                            <div class="svg-overlay">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
+                                </svg>
                             </div>
-                            <h3>${data.title}</h3>
-                            <p>${data.description}</p>
-                        </div>`;
-                } catch (err) {
-                    console.error(`Error loading info for ${folder}:`, err);
-                }
+                        </div>
+                        <h3>${data.title}</h3>
+                        <p>${data.description}</p>
+                    </div>`;
+            } catch (err) {
+                console.error(`Error loading info.json for ${folder}:`, err);
             }
         }
 
-        // Attach click listeners
-        Array.from(document.querySelectorAll(`${containerSelector} .cards`)).forEach(e => {
-            e.addEventListener("click", async item => {
-                let folder = item.currentTarget.dataset.folder;
+        // 3. Add click event to each card
+        document.querySelectorAll(`${containerSelector} .cards`).forEach(card => {
+            card.addEventListener("click", async () => {
+                let folder = card.dataset.folder;
                 let songs = await getSongs(`${path}/${folder}`);
-                playMusic(songs[0]);
-                
+                if (songs && songs.length > 0) {
+                    playMusic(songs[0]); // play the first song
+                }
             });
         });
 
     } catch (error) {
-        console.error(`Error loading ${path}:`, error);
+        console.error(`Error loading playlists from /${path}/index.json:`, error);
     }
 }
+
 
 async function main() {
 
