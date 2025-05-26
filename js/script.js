@@ -150,9 +150,9 @@ async function displayPlaylists({ path, containerSelector, playFirst = false }) 
 
 async function main() {
 
-    await getSongs("Spotify-Clone/songs/ncs");
+    await getSongs("songs/ncs");
 
-        playMusic(songs[currentSongIndex], true);
+    playMusic(songs[currentSongIndex], true);
 
     displayPlaylists({ path: "songs", containerSelector: ".spotify-container", playFirst: true });
     displayPlaylists({ path: "user-songs", containerSelector: ".user-container" });
