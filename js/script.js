@@ -25,51 +25,43 @@ const play = document.querySelector(".controls-playbar.play"); // Select the pla
 let songs;
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`/${folder}/`);
-    let responce = await a.text();
-    // console.log(responce)
-
-    let div = document.createElement("div");
-    div.innerHTML = responce;
-    let as = div.getElementsByTagName("a")
-
     songs = [];
 
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        if (element.href.endsWith(".mp3")) {
-            let songName = decodeURIComponent(element.href.split("/").pop().replace(".mp3", ""));
-            songs.push(songName);
-        }
+    try {
+        let response = await fetch(`/${folder}/songs.json`);
+        songs = await response.json();  // Expecting JSON array of song names
+    } catch (err) {
+        console.error("Failed to fetch songs.json for folder:", folder, err);
     }
 
     let songul = document.querySelector(".songList ul");
-    songul.innerHTML = ""
+    songul.innerHTML = "";
+
     for (const song of songs) {
         let li = document.createElement("li");
         li.innerHTML = `
-            <img class="controls-music " src="./img/music.svg" alt="Music Icon">
+            <img class="controls-music" src="./img/music.svg" alt="Music Icon">
             <div class="info">
                 <div class="songName">${song}</div>
             </div>
-            <img class= "controls playNow" src = "img/play.svg" alt="">
+            <img class="controls playNow" src="img/play.svg" alt="">
         `;
         songul.appendChild(li);
     }
 
-    //attach event listener to each song
     document.querySelectorAll(".songList li").forEach((e, index) => {
         e.addEventListener("click", () => {
-            let songName = e.querySelector(".info").firstElementChild.innerHTML.trim();
+            let songName = e.querySelector(".info .songName").textContent.trim();
             currentSongIndex = index;
             console.log("Playing song:", songName);
             playMusic(songName);
         });
     });
-    console.log("Fetched songs:", songs);
 
+    console.log("Fetched songs:", songs);
     return songs;
 }
+
 
 const playMusic = (track, pause = false) => {
     currentSong.pause();
