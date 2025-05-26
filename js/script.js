@@ -1,11 +1,8 @@
-
 console.log("Lets write java script");
-
 
 const currentSong = document.getElementById("currentSong");
 currentSong.volume = 0.5; // default volume
 
-volumeSlider.value = currentSong.volume * 100;
 let currentSongIndex = 0;
 let currFolder;
 
@@ -14,7 +11,6 @@ function secondsToMinutesSeconds(seconds) {
 
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-
     const formattedMinutes = String(minutes).padStart(2, '0');
     const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
@@ -46,15 +42,6 @@ async function getSongs(folder) {
             songs.push(songName);
         }
     }
-    
-    //   for (let index = 0; index < as.length; index++) {
-    //     const element = as[index];
-    //     if (element.href.endsWith(".mp3")) {
-    //         let songName = element.textContent.trim();  // gets only the displayed song name
-    //         songs.push(songName);
-    //     }
-    // }
-    
 
     let songul = document.querySelector(".songList ul");
     songul.innerHTML = ""
@@ -79,13 +66,14 @@ async function getSongs(folder) {
             playMusic(songName);
         });
     });
+    console.log("Fetched songs:", songs);
 
     return songs;
 }
 
 const playMusic = (track, pause = false) => {
     currentSong.pause();
-    currentSong.src = `/${currFolder}/${encodeURIComponent(track)}.mp3`;    
+    currentSong.src = `/${currFolder}/${encodeURIComponent(track)}.mp3`;
     // currentSong.src = `https://deshveerbatth.github.io/Spotify-Clone/${currFolder}/${encodeURIComponent(track)}.mp3`;
 
     currentSong.load();
@@ -103,157 +91,76 @@ const playMusic = (track, pause = false) => {
 
 };
 
+async function displayPlaylists({ path, containerSelector, playFirst = false }) {
+    try {
+        let a = await fetch(`/${path}/`);
+        let response = await a.text();
 
-async function displaySpotifyPlaylist() {
-    let a = await fetch(`/songs/`)
-    let responce = await a.text();
-    let div = document.createElement("div")
-    div.innerHTML = responce;
-    let anchors = div.getElementsByTagName("a");
-    let cardcontainer = document.querySelector(".spotify-container")
-    let array = Array.from(anchors)
-    for(let index = 0; index< array.length; index++){
-        const e = array[index];
-        if (e.href.includes("/songs/")) {
-            let folder = e.href.split("/songs/")[1];
-            let a = await fetch(`/songs/${folder}/info.json`)
-            let responce = await a.json();
-            
-            cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder = "${folder}" class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="/songs/${folder}/cover.jpeg"
-                                alt="Sample Image" class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path
-                                        d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
+        let div = document.createElement("div");
+        div.innerHTML = response;
+        let anchors = div.getElementsByTagName("a");
+
+        let container = document.querySelector(containerSelector);
+        let array = Array.from(anchors);
+
+        for (let index = 0; index < array.length; index++) {
+            const e = array[index];
+            if (e.href.includes(`/${path}/`)) {
+                let folder = e.href.split(`/${path}/`)[1];
+
+                try {
+                    let res = await fetch(`/${path}/${folder}/info.json`);
+                    let data = await res.json();
+
+                    container.innerHTML += `
+                        <div data-folder="${folder}" class="cards rounded">
+                            <div class="card-img-wrapper">
+                                <img class="card-img" src="/${path}/${folder}/cover.jpeg"
+                                    alt="Cover Image" class="hover-image">
+                                <div class="svg-overlay">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                        <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        <h3>${responce.title}</h3>
-                        <p>${responce.description}</p>
-                    </div>`
-        }
-    }
-
-    //load the playlist according to the playlist clicked
-    Array.from(document.getElementsByClassName("cards")).forEach(e => {
-        e.addEventListener("click", async item => {
-            songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-            playMusic(songs[0]);
-        });
-    });
-}
-
-async function displayUserPlaylists() {
-    let a = await fetch(`/user-songs/`);
-    let response = await a.text();
-
-    let div = document.createElement("div");
-    div.innerHTML = response;
-    let anchors = div.getElementsByTagName("a");
-
-    let userContainer = document.querySelector(".user-container");
-    let array = Array.from(anchors);
-
-    for (let index = 0; index < array.length; index++) {
-        const e = array[index];
-        if (e.href.includes("/user-songs/")) {
-            let folder = e.href.split("/user-songs/")[1];
-
-            try {
-                let res = await fetch(`/user-songs/${folder}/info.json`);
-                let data = await res.json();
-
-                userContainer.innerHTML += `
-                    <div data-folder="${folder}" class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="/user-songs/${folder}/cover.jpeg"
-                                alt="Sample Image" class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <h3>${data.title}</h3>
-                        <p>${data.description}</p>
-                    </div>`;
-            } catch (error) {
-                console.error(`Error loading user playlist from ${folder}:`, error);
+                            <h3>${data.title}</h3>
+                            <p>${data.description}</p>
+                        </div>`;
+                } catch (err) {
+                    console.error(`Error loading info for ${folder}:`, err);
+                }
             }
         }
-    }
 
-    // Load playlist when card is clicked
-    Array.from(document.querySelectorAll(".user-container .cards")).forEach(e => {
-        e.addEventListener("click", async item => {
-            songs = await getSongs(`user-songs/${item.currentTarget.dataset.folder}`);
+        // Attach click listeners
+        Array.from(document.querySelectorAll(`${containerSelector} .cards`)).forEach(e => {
+            e.addEventListener("click", async item => {
+                let folder = item.currentTarget.dataset.folder;
+                let songs = await getSongs(`${path}/${folder}`);
+                if (playFirst && songs.length > 0) {
+                    playMusic(songs[0]);
+                }
+            });
         });
-    });
-}
 
-async function displayAlbums() {
-    let a = await fetch(`/albums/`);
-    let response = await a.text();
-
-    let div = document.createElement("div");
-    div.innerHTML = response;
-    let anchors = div.getElementsByTagName("a");
-
-    let albumContainer = document.querySelector(".album-container");
-    let array = Array.from(anchors);
-
-    for (let index = 0; index < array.length; index++) {
-        const e = array[index];
-        if (e.href.includes("/albums/")) {
-            let folder = e.href.split("/albums/")[1];
-
-            try {
-                let res = await fetch(`/albums/${folder}/info.json`);
-                let data = await res.json();
-
-                albumContainer.innerHTML += `
-                    <div data-folder="${folder}" class="cards rounded">
-                        <div class="card-img-wrapper">
-                            <img class="card-img" src="/albums/${folder}/cover.jpeg"
-                                alt="Album Cover" class="hover-image">
-                            <div class="svg-overlay">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <h3>${data.title}</h3>
-                        <p>${data.description}</p>
-                    </div>`;
-            } catch (error) {
-                console.error(`Error loading album from ${folder}:`, error);
-            }
-        }
+    } catch (error) {
+        console.error(`Error loading ${path}:`, error);
     }
-
-    // Load playlist when album card is clicked
-    Array.from(document.querySelectorAll(".album-container .cards")).forEach(e => {
-        e.addEventListener("click", async item => {
-            songs = await getSongs(`albums/${item.currentTarget.dataset.folder}`);
-        });
-    });
 }
-
-
 
 async function main() {
 
     await getSongs("songs/ncs2");
-    // console.log("Songs List in main():", songs);
 
-    playMusic(songs[currentSongIndex], true);
+    if (songs && songs.length > 0) {
+        playMusic(songs[currentSongIndex], true);
+    } else {
+        console.error("No songs found in songs/ncs2");
+    }
 
-    displaySpotifyPlaylist();
-    displayUserPlaylists();
-    displayAlbums();
-
+    displayPlaylists({ path: "songs", containerSelector: ".spotify-container", playFirst: true });
+    displayPlaylists({ path: "user-songs", containerSelector: ".user-container" });
+    displayPlaylists({ path: "albums", containerSelector: ".album-container" });
 
     //attach event listners to play,next and previous listeners
     play.addEventListener("click", () => {
@@ -300,20 +207,20 @@ async function main() {
 
     //add an event to volume
     const volumeSlider = document.getElementById("volumeSlider");
-const volumecon = document.querySelector(".volume");
+    const volumecon = document.querySelector(".volume");
 
-// Update volume on slider input
-volumeSlider.addEventListener("input", () => {
-    const volumeValue = volumeSlider.value; // 0 to 100
-    currentSong.volume = volumeValue / 100; // Assuming currentSong is your audio element
+    // Update volume on slider input
+    volumeSlider.addEventListener("input", () => {
+        const volumeValue = volumeSlider.value; // 0 to 100
+        currentSong.volume = volumeValue / 100; // Assuming currentSong is your audio element
 
-    // Change icon based on volume
-    if (currentSong.volume === 0) {
-        volumecon.src = "img/mute.svg";
-    } else {
-        volumecon.src = "img/volume.svg";
-    }
-});
+        // Change icon based on volume
+        if (currentSong.volume === 0) {
+            volumecon.src = "img/mute.svg";
+        } else {
+            volumecon.src = "img/volume.svg";
+        }
+    });
 
 
     const volumeIcon = document.querySelector(".volume");
@@ -339,8 +246,9 @@ volumeSlider.addEventListener("input", () => {
 
     document.querySelector(".hamburg").addEventListener("click", () => {
         sidebar.style.left = "0";
-        overlay.classList.add("active");
+        overlay.style.display = "block";
     });
+
 
     overlay.addEventListener("click", () => {
         sidebar.style.left = "-100%";
@@ -352,9 +260,6 @@ volumeSlider.addEventListener("input", () => {
         right.style.display = "block"; // optional, if you hide/show right dynamically
         overlay.classList.remove("active");
     });
-
-    
-
 
 }
 
